@@ -1,0 +1,87 @@
+<div id="dashboard" flexlayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="padding: 1em 0">
+      <div >
+          Email Campaigns Overview
+      </div>
+      <div style="background: yellowgreen; color: white; padding: 10px 20px;">
+        Last {{diffDays}} Day(s)
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-flat-button color="primary" (click)="openFilter()">Filter</button>
+      </div>
+  <div *ngIf="tableShown" class="mat-elevation-z8" style="margin-top: 2em; padding-top: 2em;" fxLayout="column" fxLayoutAlign="center center">
+    <ngx-charts-line-chart [scheme]="colorScheme" [view]="view" [results]= "results" [gradient]="true"
+    [xAxis]="true" [yAxis]="true" [legend]="true" [showXAxisLabel]="true"
+    [showYAxisLabel]="true"></ngx-charts-line-chart>
+  </div>
+ 
+  <div *ngIf="!tableShown" style="text-align: center;color: red;font-size: 24px;font-weight: bold;height: fit-content;position: relative;transform: translateY(50%);"> 
+    No Data available within selected date range!
+  </div>
+  <table *ngIf="tableShown"  mat-table [dataSource]="records" style="width: 100%; margin-top: 2em;" class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="#">
+      <th mat-header-cell *matHeaderCellDef> # </th>
+      <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Campaign Name </th>
+      <td mat-cell *matCellDef="let element" style="color: yellowgreen"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="datetime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.datetime | date : 'MM-dd-yyyy hh:mm a' }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.successStatus}} </td>
+    </ng-container>
+    <ng-container matColumnDef="recipients">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Recipients </th>
+      <td mat-cell *matCellDef="let element"> {{element.recipients}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Sent">
+      <th mat-header-cell *matHeaderCellDef> Sent </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Sent}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Opened">
+      <th mat-header-cell *matHeaderCellDef> Opened </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Opened}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Clicked">
+      <th mat-header-cell *matHeaderCellDef> Clicked </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Clicked}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Bounced">
+      <th mat-header-cell *matHeaderCellDef> Bounced </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Bounced}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Complaint">
+      <th mat-header-cell *matHeaderCellDef> Complaint </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Complaint}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Unsubscribe">
+      <th mat-header-cell *matHeaderCellDef> Unsubscribed </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.Unsubscribe}} </td>
+    </ng-container>
+    <ng-container matColumnDef="reject">
+      <th mat-header-cell *matHeaderCellDef> Rejected </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.reject}} </td>
+    </ng-container>
+    <ng-container matColumnDef="All">
+      <th mat-header-cell *matHeaderCellDef> All </th>
+      <td mat-cell *matCellDef="let element"> {{element.report.All}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element"> <mat-icon>more_horiz</mat-icon>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" style="background: whitesmoke; color: black;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+</div>

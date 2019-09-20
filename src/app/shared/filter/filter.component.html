@@ -1,0 +1,22 @@
+<div id="filter" flexlayout="column">
+  <div class="filterForm" fxLayout="row" fxLayoutAlign.gt-xs="center center" fxLayoutGap="16px" fxLayout.xs="column">
+    <form [formGroup]="filterForm" fxLayout="row" fxLayoutGap="16px" fxLayout.xs="column">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="from" [matDatepicker]="picker1" [max]="yesterday" readonly
+          (click)="picker1.open()" placeholder="Choose from date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="to" [matDatepicker]="picker2" [max]="today" readonly (click)="picker2.open()"
+          placeholder="Choose to date">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </form>
+    <div fxLayout="row" class="actionBtns">
+      <button mat-flat-button color="primary" (click)="applyFilter()">Apply</button> &nbsp;
+      <button mat-button color="primary" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</div>
